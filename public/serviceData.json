@@ -1,0 +1,44 @@
+[
+    {
+        "price": "$100",
+        "image": "https://i.ibb.co/PFrCh6B/top-view-plumber-checking-kitchen-fixtures.jpg",
+        "rating": 4.3,
+        "serviceName": "Remodeling Service",
+        "Info": "Remodeling services can transform your home or business into a space that better suits your needs and preferences. From minor updates to complete renovations, remodeling can increase the value of your property and enhance your living or working experience. Services may include kitchen and bathroom renovations, basement finishing, room additions, and more. Professional remodelers can guide you through the process, helping you select materials, plan layouts, and manage timelines and budgets. With the right team, remodeling can be a stress-free and rewarding experience that results in a beautiful, functional space that meets your unique needs and style."
+    },
+    {
+        "price": "$120",
+        "image": "https://i.ibb.co/k5yb4fH/plumbing-repair-service.jpg",
+        "rating": 4.2,
+        "serviceName": "Basement Plumbing",
+        "Info": "Basement plumbing services are essential for homeowners who want to ensure that their basement is free from plumbing issues. The basement is a crucial part of any home, and it requires proper plumbing to ensure that it remains dry, safe, and comfortable. Professional basement plumbing services include drain cleaning, sump pump installation and repair, water heater installation, and leak detection and repair. If you experience any issues with your basement plumbing, it is crucial to contact a licensed plumber as soon as possible. They can diagnose the problem and provide effective solutions to prevent any further damage to your home. Don't let plumbing issues ruin your basement. Contact a professional plumbing service today."
+    },
+    {
+        "price": "$150",
+        "image": "https://i.ibb.co/ThLwHB3/cheerful-adult-plumber-sitting-bathroom.jpg",
+        "rating": 4.5,
+        "serviceName": "Bathroom Plumbing",
+        "Info": "Bathroom plumbing is an essential aspect of any home or commercial property. From the toilet to the sink, shower, and bathtub, there are a variety of plumbing components that work together to make your bathroom functional. However, over time, these components can break down or experience issues, resulting in leaks, clogs, or other problems. That's where professional bathroom plumbing services come in. A licensed and experienced plumber can quickly diagnose and fix any plumbing issues in your bathroom, ensuring that it runs smoothly and efficiently. From installing new fixtures to repairing leaks and clearing clogs, a reliable plumbing service can help keep your bathroom in top condition."
+    },
+    {
+        "price": "$80",
+        "image": "https://i.ibb.co/Fkr5ZD8/man-fixing-kitchen-sink.jpg",
+        "rating": 4.0,
+        "serviceName": "Water Line Repair",
+        "Info": "Water line services are essential for maintaining the water supply to residential and commercial buildings. These services involve the installation, repair, and replacement of water lines, as well as regular maintenance to prevent leaks and blockages. A professional water line service provider uses advanced techniques and tools to identify the cause of any water supply issue and efficiently solve the problem. Their services also include water line inspections and assessments to ensure the system is functioning correctly and meets all safety standards. A reliable water line service provider ensures that your water supply remains consistent and safe, giving you peace of mind and preventing potential water-related emergencies."
+    },
+    {
+        "price": "$50",
+        "image": "https://i.ibb.co/Mnc0dBZ/young-engineer-adjusting-autonomous-heating.jpg",
+        "rating": 4.1,
+        "serviceName": "Gas Line Services",
+        "Info": "Gas line services refer to the installation, repair, and maintenance of gas lines in homes, businesses, and industrial facilities. These services are essential for ensuring the safe and reliable delivery of natural gas to various appliances and equipment that rely on it. Gas line professionals are trained to handle the complex and potentially hazardous nature of gas line systems, from detecting and repairing leaks to installing new lines and performing safety inspections. Whether you need a gas line installed for a new appliance or require emergency repair services, hiring a trusted and experienced gas line professional is critical to ensuring the safety and functionality of your gas line system."
+    },
+    {
+        "price": "$90",
+        "image": "https://i.ibb.co/bb0mCjC/portrait-attractive-hispanic-handyman-writing-work-estimate-before-fixing-kitchen-sink.jpg",
+        "rating": 4.3,
+        "serviceName": "Kitchen Plumbing",
+        "Info": "The kitchen is the heart of the home, and a functioning plumbing system is essential to keep it running smoothly. From cooking and cleaning to washing dishes, your kitchen's plumbing system is put to work every day. When something goes wrong, it can cause a major inconvenience and disrupt your daily routin.That's why it's important to have a reliable and professional kitchen plumbing service provider to help you with any issues that may arise. Whether you're dealing with a leaky faucet, clogged drain, or broken garbage disposal, a professional plumber can help you get your kitchen back to working order quickly"
+    }
+]

@@ -1,0 +1,22 @@
+.text-1 {
+    background: white;
+    margin-bottom: 10px;
+    position: relative;
+    animation: text 3s 1;
+}
+
+@keyframes text {
+    0% {
+        margin-bottom: -50px;
+    }
+
+    30% {
+        letter-spacing: 10px;
+        margin-bottom: -50px;
+    }
+
+    80% {
+        letter-spacing: 2px;
+        margin-bottom: -50px;
+    }
+}
