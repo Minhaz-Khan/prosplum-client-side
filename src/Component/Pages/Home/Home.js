@@ -13,7 +13,7 @@ const Home = () => {
 
     return (
         <div className='bannerBg' >
-            <div className="container px-6 py-10 mx-auto">
+            <div className="container px-6 pb-10 pt-14 mx-auto">
                 <div className="items-center lg:flex">
                     <div className="w-full lg:w-1/2 ">
                         <div className="">
