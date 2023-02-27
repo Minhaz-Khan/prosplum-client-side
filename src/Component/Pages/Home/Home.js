@@ -3,10 +3,10 @@ import bannerImg from '../../../Image/istockphoto-1204813771-612x612.jpg'
 import './Home.css'
 import ExtraBenefit from './ExtraBenefit';
 import { Link, useLoaderData } from 'react-router-dom';
-import ServiceHome from './ServicesHome/ServiceHome';
 import bgImage from '../../../Image/bannerbg.png';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Service from '../Service/Service';
 const Home = () => {
     AOS.init({ duration: 1000 })
     const services = useLoaderData();
@@ -41,10 +41,10 @@ const Home = () => {
                 <h2 className='text-5xl font-medium text-center py-2'>Best Service We Offer</h2>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10'>
-                    {services && services.map(service => <ServiceHome key={service._id} service={service}></ServiceHome>)}
+                    {services && services.map(service => <Service key={service._id} service={service}></Service>)}
                 </div>
                 <Link to={'/services'} className='flex justify-center'>
-                    <button class="px-6 py-2 mt-6 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                    <button className="px-6 py-2 mt-6 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                         See All
                     </button>
                 </Link>

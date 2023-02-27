@@ -113,7 +113,7 @@ const SignUp = () => {
 
                             <div className="mt-8 md:flex md:items-center">
                                 <button type='submit' className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                                    {isLoading ? 'Sign Up' : 'loading...'}
+                                    {isLoading ? 'loading...' : 'Sign Up'}
                                 </button>
 
                                 <Link href="#" className="inline-block mt-4 text-center text-blue-500 md:mt-0 md:mx-6 hover:underline dark:text-blue-400">

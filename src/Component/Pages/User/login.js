@@ -4,7 +4,7 @@ import logo from '../../../Image/plumber_logo2-removebg-preview.png';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const { signIn, isLoading } = useContext(AuthContext)
+    const { signIn, isLoading, googleSignIn } = useContext(AuthContext)
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
@@ -12,12 +12,20 @@ const Login = () => {
         const password = form.password.value;
 
         signIn(email, password)
-            .than(result => {
+            .then(result => {
                 const user = result.user;
                 console.log(user);
             })
+            .catch(err => console.log(err))
 
-
+    }
+    const handleGoogleSignin = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(err => console.log(err))
     }
     return (
         <section className="bg-white dark:bg-gray-900 h-screen">
@@ -42,7 +50,7 @@ const Login = () => {
                                     </svg>
                                 </span>
 
-                                <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                                <input type="email" name='email' className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
                             </div>
 
                             <div className="relative flex items-center mt-4">
@@ -52,12 +60,12 @@ const Login = () => {
                                     </svg>
                                 </span>
 
-                                <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+                                <input type="password" name='password' className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
                             </div>
 
                             <div className="mt-8 md:flex md:items-center">
                                 <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                                    Log in
+                                    {isLoading ? 'loading...' : 'Log in'}
                                 </button>
 
                                 <Link href="#" className="inline-block mt-4 text-center text-blue-500 md:mt-0 md:mx-6 hover:underline dark:text-blue-400">
@@ -67,7 +75,7 @@ const Login = () => {
                             <p className="mt-4 text-center text-gray-600 dark:text-gray-400">Don't have an account? <Link to={'/signup'} className='text-blue-600 hover:underline '>Create One</Link></p>
                             <p className="mt-4 text-center text-gray-600 dark:text-gray-400">or sign in with</p>
 
-                            <Link href="#" className=" w-2/3 mx-auto flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <Link onClick={handleGoogleSignin} className=" w-2/3 mx-auto flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                                     <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107" />
                                     <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00" />

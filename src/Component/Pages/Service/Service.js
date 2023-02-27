@@ -3,7 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 
-const ServiceHome = ({ service }) => {
+const Service = ({ service }) => {
     AOS.init({ duration: 1000 })
     const { _id, price, image, rating, serviceName, Info } = service;
     return (
@@ -35,8 +35,7 @@ const ServiceHome = ({ service }) => {
                 </div>
             </Link>
         </div>
-
     );
 };
 
-export default ServiceHome;
+export default Service;
