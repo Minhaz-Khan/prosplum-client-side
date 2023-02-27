@@ -3,7 +3,7 @@ import logo from '../../../Image/plumber_logo2-removebg-preview.png'
 
 const Footer = () => {
     return (
-        <footer class="bg-white dark:bg-gray-900 mt-10">
+        <footer class="bg-gray-50 dark:bg-gray-900 mt-10">
             <div class="container p-6 mx-auto">
                 <div class="lg:flex">
                     <div class="w-full -mx-6 lg:w-2/5">

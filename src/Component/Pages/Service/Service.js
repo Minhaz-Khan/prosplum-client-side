@@ -8,11 +8,11 @@ const Service = ({ service }) => {
     const { _id, price, image, rating, serviceName, Info } = service;
     return (
         <div data-aos='zoom-in'>
-            <Link href="#" className="group relative block bg-black shadow-xl rounded">
+            <Link to={`/serviceDetails/${_id}`} className="group relative block bg-black shadow-xl rounded">
                 <img
                     alt="Developer"
                     src={image}
-                    className="absolute rounded inset-0 h-full w-full object-cover duration-200 opacity-75 transition-opacity group-hover:opacity-50"
+                    className=" absolute rounded inset-0 h-full w-full object-cover duration-200 opacity-75 transition-opacity group-hover:opacity-50"
                 />
 
                 <div className="relative p-4 sm:p-6 lg:p-8">
