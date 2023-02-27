@@ -10,27 +10,32 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
+    console.log(user);
 
-    const createUser = (email, pass) => {
+    const createUser = (email, password) => {
+        console.log(email, password);
         setIsLoading(true)
-        return signInWithEmailAndPassword(auth, email, pass)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const signIn = (email, pass) => {
+    const signIn = (email, password) => {
         setIsLoading(true)
-        return createUserWithEmailAndPassword(auth, email, pass)
+        return signInWithEmailAndPassword(auth, email, password)
     }
     const googleSignIn = () => {
-        signInWithPopup(auth, googleProvider)
+        setIsLoading(true)
+        return signInWithPopup(auth, googleProvider)
     }
 
     const logOut = () => {
         setIsLoading(true)
         return signOut(auth)
     }
-    const updateUserProfile = (userInfo) => {
+    const updateUserProfile = (name, photo) => {
         setIsLoading(true)
-        return updateProfile(auth.currentUser, userInfo)
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photo
+        })
     }
     const emailVerification = () => {
         setIsLoading(true)

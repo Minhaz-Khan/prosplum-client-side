@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineFileJpg } from "react-icons/ai";
 import logo from '../../../Image/plumber_logo2-removebg-preview.png'
@@ -6,6 +6,8 @@ import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const SignUp = () => {
     const { isLoading, createUser, googleSignIn, updateUserProfile, emailVerification } = useContext(AuthContext)
+    const imageHostKey = process.env.REACT_APP_imageKey;
+    console.log(imageHostKey);
     const handleSignup = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -14,15 +16,49 @@ const SignUp = () => {
         const password = form.password.value;
         const image = form.photo.files[0];
 
-        createUser(email, password)
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(data => {
+                createUser(email, password)
+                    .then(result => {
+                        const user = result.user;
+                        updateUserProfile(name, data.data.display_url)
+                            .then(() => {
+                                emailVerification()
+                                    .then(() => {
+                                        alert('check your email for verification')
+                                        console.log(user);
+                                    })
+                                    .catch(err => console.log(err))
+                            })
+                            .catch(err => console.log(err))
+                    })
+                    .catch(err => console.error(err))
+
+            })
+            .catch(err => console.log(err))
+
+
+
+
+
+
+    }
+
+    const handleGoogleSignin = () => {
+        googleSignIn()
             .then(result => {
                 const user = result.user;
                 console.log(user);
             })
             .catch(err => console.log(err))
-
-
-        console.log(name, email, password, image);
     }
     return (
         <section className="bg-white dark:bg-gray-900 h-screen">
@@ -49,8 +85,8 @@ const SignUp = () => {
                             </div>
                             <div className="relative flex items-center mt-4">
                                 <span className="absolute">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </span>
 
@@ -59,8 +95,8 @@ const SignUp = () => {
 
                             <div className="relative flex items-center mt-4">
                                 <span className="absolute">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                     </svg>
                                 </span>
 
@@ -77,7 +113,7 @@ const SignUp = () => {
 
                             <div className="mt-8 md:flex md:items-center">
                                 <button type='submit' className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                                    Sign in
+                                    {isLoading ? 'Sign Up' : 'loading...'}
                                 </button>
 
                                 <Link href="#" className="inline-block mt-4 text-center text-blue-500 md:mt-0 md:mx-6 hover:underline dark:text-blue-400">
@@ -87,7 +123,7 @@ const SignUp = () => {
                             <p className="mt-4 text-center text-gray-600 dark:text-gray-400">Already have an account? <Link to={'/login'} className='text-blue-600 hover:underline '>Log in</Link></p>
                             <p className="mt-4 text-center text-gray-600 dark:text-gray-400">or sign in with</p>
 
-                            <Link href="#" className=" w-2/3 mx-auto flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <Link onClick={handleGoogleSignin} className=" w-2/3 mx-auto flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                                     <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107" />
                                     <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00" />
