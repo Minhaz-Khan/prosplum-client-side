@@ -1,6 +1,52 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const AddService = () => {
+    const { user } = useContext(AuthContext)
+    const handleAddService = event => {
+        const imageHostKey = process.env.REACT_APP_imageKey;
+        event.preventDefault();
+        const form = event.target;
+        const serviceName = form.serviceName.value;
+        const email = form.email.value;
+        const imageFile = form.image.files[0];
+        const price = form.price.value;
+        const rating = form.rating.value;
+        const Info = form.Info.value;
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(data => {
+                const image = data.data.display_url
+                const service = { serviceName, email, image, price, rating, Info }
+                fetch(`http://localhost:5000/addService`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(service)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.acknowledged) {
+                            Swal.fire(
+                                'Added Service',
+                                'You Service added Successfully!',
+                                'success'
+                            )
+                            form.reset()
+                        }
+                    })
+            })
+    }
     return (
 
         <section class="bg-gray-100">
@@ -25,112 +71,93 @@ const AddService = () => {
                     </div>
 
                     <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                        <form action="" class="space-y-4">
+                        <form onSubmit={handleAddService} class="space-y-4">
                             <div>
-                                <label class="sr-only" for="name">Name</label>
+                                <label class="sr-only" for="name">serviceName</label>
                                 <input
-                                    class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Name"
+                                    class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                    placeholder="serviceName"
                                     type="text"
                                     id="name"
+                                    name='serviceName'
+                                    required
                                 />
                             </div>
 
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="sr-only" for="email">Email</label>
+                                    <label class="sr-only border-2" for="email">Email</label>
                                     <input
-                                        class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                         placeholder="Email address"
                                         type="email"
                                         id="email"
+                                        name='email'
+                                        required
+                                        value={user.email}
+                                        disabled
                                     />
                                 </div>
 
                                 <div>
-                                    <label class="sr-only" for="phone">Phone</label>
+                                    <label class="sr-only" for="Image">Image</label>
                                     <input
-                                        class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                        placeholder="Phone Number"
-                                        type="tel"
-                                        id="phone"
+                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                        placeholder="Service Image"
+                                        type="file"
+                                        id="Image"
+                                        name='image'
+                                        accept='image/*'
+                                        required
                                     />
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
+                                    <label class="sr-only border-2" for="price">price</label>
                                     <input
-                                        class="peer sr-only"
-                                        id="option1"
-                                        type="radio"
-                                        tabindex="-1"
-                                        name="option"
+                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                        placeholder="Price"
+                                        type="number"
+                                        id="price"
+                                        name='price'
                                     />
-
-                                    <label
-                                        for="option1"
-                                        class="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                                        tabindex="0"
-                                    >
-                                        <span class="text-sm font-medium"> Option 1 </span>
-                                    </label>
                                 </div>
 
                                 <div>
-                                    <input
-                                        class="peer sr-only"
-                                        id="option2"
-                                        type="radio"
-                                        tabindex="-1"
-                                        name="option"
-                                    />
-
-                                    <label
-                                        for="option2"
-                                        class="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                                        tabindex="0"
-                                    >
-                                        <span class="text-sm font-medium"> Option 2 </span>
-                                    </label>
-                                </div>
-
-                                <div>
-                                    <input
-                                        class="peer sr-only"
-                                        id="option3"
-                                        type="radio"
-                                        tabindex="-1"
-                                        name="option"
-                                    />
-
-                                    <label
-                                        for="option3"
-                                        class="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                                        tabindex="0"
-                                    >
-                                        <span class="text-sm font-medium"> Option 3 </span>
-                                    </label>
+                                    <select name="rating" id="" className='border border-gray-300 h-10 w-10 rounded'>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
                                 </div>
                             </div>
+
+
 
                             <div>
                                 <label class="sr-only" for="message">Message</label>
 
                                 <textarea
-                                    class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Message"
+                                    class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                    placeholder="Description"
                                     rows="8"
                                     id="message"
+                                    name='Info'
+                                    required
+
                                 ></textarea>
                             </div>
 
                             <div class="mt-4">
                                 <button
                                     type="submit"
-                                    class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                                    class="inline-block  text-sm  tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 px-5 py-3 font-medium  sm:w-auto"
                                 >
-                                    Send Enquiry
+                                    Add Service
                                 </button>
                             </div>
                         </form>

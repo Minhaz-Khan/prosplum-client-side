@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 const Review = ({ review, handleDeletReview }) => {
     const { email, name, data, feedback, rating, serviceId, _id, image } = review
-    // console.log(feedback);
     const [isDisabled, setIsLoading] = useState(true);
-    // console.log(isDisabled);
 
     const handleReviewEdit = event => {
         event.preventDefault();
@@ -111,7 +109,7 @@ const Review = ({ review, handleDeletReview }) => {
                     </form>
                     {isDisabled ? <button OnClick={() => handleDeletButton(_id)} className='py-1 px-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl ml-2'> Delete</button> :
                         <button type='submit' className='py-1 px-2 bg-green-500 hover:bg-green-600 text-white rounded-xl ml-2'>submit</button>}
-                    <button OnClick={() => handleDeletButton(_id)} className='py-1 px-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl ml-2'> Delete</button>
+
                 </div>}
         </div>
     );

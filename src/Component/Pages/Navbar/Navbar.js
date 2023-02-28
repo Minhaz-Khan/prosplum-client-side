@@ -40,8 +40,8 @@ const Navbar = () => {
                         {
                             user ?
                                 <>
-                                    <Link className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">My Reviews</Link>
-                                    <Link className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Add Service</Link>
+                                    <Link className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to={'/myServices'}>My Services</Link>
+                                    <Link className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to={'/addService'}>Add Service</Link>
                                     <Link onClick={handleLogOut} className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" >Log Out</Link></> :
                                 <Link className="my-2 text-lg font-medium text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" to={'/login'}>Login</Link>
                         }
