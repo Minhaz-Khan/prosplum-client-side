@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Navigate, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Review from '../Review/Review';
 
@@ -11,7 +11,7 @@ const ServiceDetails = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews/${_id}`)
+        fetch(`https://prosplum.vercel.app/reviews/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setReviews(data)
@@ -19,6 +19,9 @@ const ServiceDetails = () => {
     }, [_id])
 
     const handleReview = (event) => {
+        if (!user) {
+            <Navigate to={'/login'}></Navigate>
+        }
         event.preventDefault()
         const form = event.target;
         const feedback = form.feedback.value;
@@ -36,7 +39,7 @@ const ServiceDetails = () => {
             date
         }
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://prosplum.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -73,7 +76,7 @@ const ServiceDetails = () => {
 
                     </div>
 
-                    <div className="sticky top-0">
+                    <div className="md:sticky top-0">
 
                         <div className="mt-8 flex justify-between">
                             <div className="max-w-[35ch] space-y-2">
@@ -162,7 +165,7 @@ const ServiceDetails = () => {
             <hr />
 
             <div className='container mx-auto p-10 grid grid-cols-5 '>
-                <div className="flex flex-col col-span-2 max-w-lg p-5  rounded-xl lg:p-5 shadow-xl ">
+                <div className="flex flex-col col-span-5 lg:col-span-2 max-w-lg p-5  rounded-xl lg:p-5 shadow-xl h-6/6 lg:h-80">
                     <div className="flex flex-col items-center w-full">
                         <span className="text-center text-3xl">How was your experience?</span>
 
@@ -181,7 +184,7 @@ const ServiceDetails = () => {
                     </div>
 
                 </div>
-                <div className='col-span-3 p-5'>
+                <div className='col-span-5 lg:col-span-3 p-5'>
                     <h1 className='uppercase text-xl text-center font-bold mb-4'>our castomer service feedback</h1>
                     {reviews.length > 0 ? reviews.map(review => <Review key={review._id} review={review} handleDeletReview={handleDeletReview}></Review>) : <h2 className='text-5xl '> No reviews ....</h2>}
                 </div>

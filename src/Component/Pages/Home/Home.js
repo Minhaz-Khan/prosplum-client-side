@@ -42,7 +42,7 @@ const Home = () => {
                 <h4 className='text-sm text-blue-600 font-medium text-center uppercase'>our services</h4>
                 <h2 className='text-5xl font-medium text-center py-2'>Best Service We Offer</h2>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:m-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 m-5 lg:m-10'>
                     {services && services.map(service => <Service key={service._id} service={service}></Service>)}
                 </div>
                 <Link to={'/services'} className='flex justify-center'>

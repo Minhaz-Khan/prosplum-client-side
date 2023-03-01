@@ -1,20 +1,45 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const Review = ({ review, handleDeletReview }) => {
+    const { user } = useContext(AuthContext)
     const { email, name, data, feedback, rating, serviceId, _id, image } = review
-    const [isDisabled, setIsLoading] = useState(true);
+    const [isDisabled, setDisabled] = useState(true);
+    const [newReview, setNewReview] = useState(feedback)
 
-    const handleReviewEdit = event => {
-        event.preventDefault();
-        const feedback = event.target.feedback.value;
-        console.log(feedback);
+    const handleReview = (event) => {
+        const newfeedback = event.target.value;
+        setNewReview(newfeedback)
+        console.log(newReview);
+    }
+    const handleReviewEdit = (id) => {
+        fetch(`https://prosplum.vercel.app/review/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ feedback: newReview })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    Swal.fire(
+                        'update',
+                        'You reviews updated Successfully!',
+                        'success'
+                    )
+                    setDisabled(true)
+                }
+            })
     }
 
     const handleDeletButton = (id) => {
         console.log(id);
         const isDelete = window.confirm('are you sure delete this review')
         if (isDelete) {
-            fetch(`http://localhost:5000/review/${id}`, {
+            fetch(`https://prosplum.vercel.app/review/${id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())
@@ -33,13 +58,13 @@ const Review = ({ review, handleDeletReview }) => {
                 <div className='my-5'>
 
                     <div className='flex justify-between items-center'>
-                        <div class="flex items-center gap-x-2">
-                            <img class="object-cover w-12 h-12 rounded-full" src={image} alt="" />
+                        <div className="flex items-center gap-x-2">
+                            <img className="object-cover w-12 h-12 rounded-full hidden md:block" src={image} alt="" />
 
                             <div>
-                                <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">{name}</h1>
+                                <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">{name}</h1>
 
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{data}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">{data}</p>
                             </div>
                         </div>
                         <div className="-ml-0.5 flex items-center">
@@ -101,14 +126,14 @@ const Review = ({ review, handleDeletReview }) => {
                         </div>
                     </div>
                     <hr className='my-2' />
-                    <form onSubmit={handleReviewEdit} className='flex justify-between'>
-                        <input type="text" name='feedback' value={feedback} disabled={isDisabled} className={`${isDisabled ? 'border-0' : 'border-2'} bg-white`} />
-                        <div>
-                            <button onClick={() => setIsLoading(!isDisabled)} className={`py-1 px-2 ring-2 hover:bg-blue-600 hover:text-white ring-blue-500 rounded-xl `}> {isDisabled ? 'Edit' : 'Close'}</button>
-                        </div>
-                    </form>
-                    {isDisabled ? <button OnClick={() => handleDeletButton(_id)} className='py-1 px-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl ml-2'> Delete</button> :
-                        <button type='submit' className='py-1 px-2 bg-green-500 hover:bg-green-600 text-white rounded-xl ml-2'>submit</button>}
+                    <div className='flex justify-around md:justify-between'>
+                        <input onChange={handleReview} type="text" name='feedback' value={newReview} disabled={isDisabled} className={`${isDisabled ? 'border-0' : 'border-2'} bg-white`} />
+                        {user?.email === email ? <div className='flex md:flex-col lg:flex-row'>
+                            <button onClick={() => setDisabled(!isDisabled)} className={`py-1 px-2 ring-2 hover:bg-blue-600 hover:text-white ring-blue-500 rounded-xl `}> {isDisabled ? 'Edit' : 'Close'}</button>
+                            {isDisabled ? <button onClick={() => handleDeletButton(_id)} className='py-1 px-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl ml-2'> Delete</button> :
+                                <button onClick={() => handleReviewEdit(_id)} className='py-1 px-2 bg-green-500 hover:bg-green-600 text-white rounded-xl ml-2'>submit</button>}
+                        </div> : <div></div>}
+                    </div>
 
                 </div>}
         </div>

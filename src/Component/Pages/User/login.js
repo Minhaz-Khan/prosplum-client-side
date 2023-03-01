@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import logo from '../../../Image/plumber_logo2-removebg-preview.png';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const Login = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/'
     const { signIn, isLoading, googleSignIn } = useContext(AuthContext)
     const handleLogin = event => {
         event.preventDefault();
@@ -14,7 +18,12 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                Swal.fire(
+                    'Login',
+                    'You are login successfully!',
+                    'success'
+                )
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
 
@@ -23,7 +32,7 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
     }

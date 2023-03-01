@@ -27,7 +27,7 @@ const AddService = () => {
             .then(data => {
                 const image = data.data.display_url
                 const service = { serviceName, email, image, price, rating, Info }
-                fetch(`http://localhost:5000/addService`, {
+                fetch(`https://prosplum.vercel.app/addService`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -49,33 +49,34 @@ const AddService = () => {
     }
     return (
 
-        <section class="bg-gray-100">
-            <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
-                    <div class="lg:col-span-2 lg:py-12">
-                        <p class="max-w-xl text-lg">
+        <section className="bg-gray-100">
+            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+                    <div className="lg:col-span-2 lg:py-12">
+                        <div className="mt-8">
+                            <a href="" className="text-2xl font-bold text-blue-600">
+                                Add Your Service
+                            </a>
+
+                            <address className="mt-2 not-italic">
+                                282 Kevin Brook, Imogeneborough, CA 58517
+                            </address>
+                        </div>
+                        <p className="max-w-xl text-lg mt-5">
                             At the same time, the fact that we are wholly owned and totally
                             independent from manufacturer and other group control gives you
                             confidence that we will only recommend what is right for you.
                         </p>
 
-                        <div class="mt-8">
-                            <a href="" class="text-2xl font-bold text-blue-600">
-                                0151 475 4450
-                            </a>
 
-                            <address class="mt-2 not-italic">
-                                282 Kevin Brook, Imogeneborough, CA 58517
-                            </address>
-                        </div>
                     </div>
 
-                    <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                        <form onSubmit={handleAddService} class="space-y-4">
+                    <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+                        <form onSubmit={handleAddService} className="space-y-4">
                             <div>
-                                <label class="sr-only" for="name">serviceName</label>
+                                <label className="sr-only" htmlFor="name">serviceName</label>
                                 <input
-                                    class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                    className="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                     placeholder="serviceName"
                                     type="text"
                                     id="name"
@@ -84,11 +85,11 @@ const AddService = () => {
                                 />
                             </div>
 
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="sr-only border-2" for="email">Email</label>
+                                    <label className="sr-only border-2" htmlFor="email">Email</label>
                                     <input
-                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                         placeholder="Email address"
                                         type="email"
                                         id="email"
@@ -100,9 +101,9 @@ const AddService = () => {
                                 </div>
 
                                 <div>
-                                    <label class="sr-only" for="Image">Image</label>
+                                    <label className="sr-only" htmlFor="Image">Image</label>
                                     <input
-                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                         placeholder="Service Image"
                                         type="file"
                                         id="Image"
@@ -113,11 +114,11 @@ const AddService = () => {
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="sr-only border-2" for="price">price</label>
+                                    <label className="sr-only border-2" htmlFor="price">price</label>
                                     <input
-                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                        className="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                         placeholder="Price"
                                         type="number"
                                         id="price"
@@ -139,10 +140,10 @@ const AddService = () => {
 
 
                             <div>
-                                <label class="sr-only" for="message">Message</label>
+                                <label className="sr-only" htmlFor="message">Message</label>
 
                                 <textarea
-                                    class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                    className="w-full rounded-lg border border-gray-300 p-3 text-sm"
                                     placeholder="Description"
                                     rows="8"
                                     id="message"
@@ -152,10 +153,10 @@ const AddService = () => {
                                 ></textarea>
                             </div>
 
-                            <div class="mt-4">
+                            <div className="mt-4">
                                 <button
                                     type="submit"
-                                    class="inline-block  text-sm  tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 px-5 py-3 font-medium  sm:w-auto"
+                                    className="inline-block  text-sm  tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg md:w-1/2 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 px-5 py-3 font-medium  sm:w-auto"
                                 >
                                     Add Service
                                 </button>

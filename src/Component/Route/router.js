@@ -7,6 +7,7 @@ import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
 import Services from "../Pages/Services/Services";
 import Login from '../Pages/User/Login'
 import SignUp from "../Pages/User/SignUp";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
-                loader: () => fetch('http://localhost:5000/services')
+                loader: () => fetch('https://prosplum.vercel.app/services')
             },
             {
                 path: 'login',
@@ -29,20 +30,20 @@ const router = createBrowserRouter([
             {
                 path: 'services',
                 element: <Services></Services>,
-                loader: () => fetch('http://localhost:5000/allservice')
+                loader: () => fetch('https://prosplum.vercel.app/allservice')
             },
             {
                 path: 'serviceDetails/:id',
                 element: <ServiceDetails></ServiceDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/service/${params.id}`)
+                loader: ({ params }) => fetch(`https://prosplum.vercel.app/service/${params.id}`)
             },
             {
                 path: 'addService',
-                element: <AddService></AddService>
+                element: <PrivetRoute><AddService></AddService></PrivetRoute>
             },
             {
                 path: 'myServices',
-                element: <MyServices></MyServices>
+                element: <PrivetRoute><MyServices></MyServices></PrivetRoute>
             }
         ]
     }
